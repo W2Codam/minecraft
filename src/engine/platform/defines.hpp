@@ -32,18 +32,12 @@ enum class Architecture {
 // Platform detection
 #ifdef __APPLE__
 # define PLATFORM_APPLE 1
-# define PLATFORM_LINUX 0
-# define PLATFORM_WINDOWS 0
 # include "darwin/defines.hpp"
 #elif defined(_WIN32) && defined(MSVC)
-# define PLATFORM_APPLE 0
-# define PLATFORM_LINUX 0
 # define PLATFORM_WINDOWS 1
 # include "windows/defines.hpp"
 #elif defined(__linux__)
-# define PLATFORM_APPLE 0
 # define PLATFORM_LINUX 1
-# define PLATFORM_WINDOWS 0
 # include "linux/defines.hpp"
 #else
 # error "Unknown platform or not supported!"
