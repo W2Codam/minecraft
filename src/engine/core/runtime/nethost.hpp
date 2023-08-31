@@ -8,45 +8,30 @@
 // ============================================================================
 
 #pragma once
-#include "engine/core/compiler.hpp"
 #include "engine/core/types/common.hpp"
-#include "engine/platform/defines.hpp"
 
 // ============================================================================
 
 #ifdef PLATFORM_WINDOWS
 # ifdef NETHOST_EXPORT
-#	define NETHOST_API __declspec(dllexport)
+#	define NETHOST_API DLLEXPORT
 # else
-// Consuming the nethost as a static library
-// Shouldn't export attempt to dllimport.
 #	ifdef NETHOST_USE_AS_STATIC
 #	 define NETHOST_API
 #	else
-#	 define NETHOST_API __declspec(dllimport)
+#	 define NETHOST_API DLLIMPORT
 #	endif
-# endif
-
-# define NETHOST_CALLTYPE __stdcall
-# ifdef _WCHAR_T_DEFINED
-typedef wchar_t char_t;
-# else
-typedef unsigned short char_t;
 # endif
 #else
 # ifdef NETHOST_EXPORT
-#	define NETHOST_API __attribute__((__visibility__("default")))
+#	define NETHOST_API DLLEXPORT
 # else
 #	define NETHOST_API
 # endif
 
-# define NETHOST_CALLTYPE
-typedef char char_t;
-#endif
-
-#ifdef __cplusplus
+# ifdef __cplusplus
 extern "C" {
-#endif
+# endif
 
 // ============================================================================
 
@@ -104,9 +89,9 @@ struct getHostFXRParams {
 //   the need to call this function multiple times, pass a large buffer (e.g.
 //   PATH_MAX).
 //
-NETHOST_API int NETHOST_CALLTYPE get_hostfxr_path(
+NETHOST_API int get_hostfxr_path(
 	char_t* buffer, size_t* buffer_size, const getHostFXRParams* parameters);
 
-#ifdef __cplusplus
+# ifdef __cplusplus
 } // extern "C"
-#endif
+# endif

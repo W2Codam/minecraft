@@ -35,6 +35,7 @@ enum class Architecture {
 # include "darwin/defines.hpp"
 #elif defined(_WIN32) && defined(MSVC)
 # define PLATFORM_WINDOWS 1
+# include <Windows.h>
 # include "windows/defines.hpp"
 #elif defined(__linux__)
 # define PLATFORM_LINUX 1
