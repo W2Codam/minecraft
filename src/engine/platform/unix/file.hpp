@@ -3,13 +3,22 @@
 // See the LICENSE file in the project root for more information.
 // ============================================================================
 
-#include <iostream>
+#pragma once
+#include <stdio.h>
+#include <unistd.h>
 #include <core/types/common.hpp>
-#include <platform/defines.hpp>
+#include <platform/base/file_base.hpp>
 
 // ============================================================================
 
-int main(int argc, const char* argv[]) {
-	std::cout << "Hello, Darwin!" << std::endl;
-	return (EXIT_SUCCESS);
-}
+namespace core::filesystem {
+
+/**
+ * @brief File class for reading and writing files.
+ * TODO: Implement this class.
+ */
+class File : public AFileBase {
+
+};
+
+} // namespace Core

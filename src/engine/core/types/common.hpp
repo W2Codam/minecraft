@@ -4,6 +4,33 @@
 // ============================================================================
 
 #pragma once
+
+/** @brief The different supported platforms. */
+enum class PlatformType {
+	Windows,
+	Linux,
+	Apple,
+};
+
+/** @brief The different available architectures. */
+enum class ArchitectureType {
+	x86,
+	x64,
+	arm,
+	arm64,
+};
+
+
+#ifdef __APPLE__
+# define PLATFORM_APPLE 1
+#elif defined(_WIN32) && defined(MSVC)
+# define PLATFORM_WINDOWS 1
+#elif defined(__linux__)
+# define PLATFORM_LINUX 1
+#else
+# error "Unknown platform or not supported!"
+#endif
+#define PLATFORM_32 (!PLATFORM_64)
 #include <core/compiler.hpp>
 #include <cstddef>
 #include <platform/defines.hpp>

@@ -3,13 +3,5 @@
 // See the LICENSE file in the project root for more information.
 // ============================================================================
 
-#include <iostream>
+#pragma once
 #include <core/types/common.hpp>
-#include <platform/defines.hpp>
-
-// ============================================================================
-
-int main(int argc, const char* argv[]) {
-	std::cout << "Hello, Linux!" << std::endl;
-	return (EXIT_SUCCESS);
-}

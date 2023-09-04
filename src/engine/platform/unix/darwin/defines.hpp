@@ -8,14 +8,14 @@
 // ============================================================================
 // NOTE: 10.14 Mojave is the last version to support 32bit apps
 
-#ifdef PLATFORM_APPLE
+#if PLATFORM_APPLE
 	#define PLATFORM_64 1
-	#define PLATFORM_TYPE PlatformType::Mac
+	#define PLATFORM_TYPE Platform::Mac
 	#define PLATFORM_SEPARATOR "/"
 	#define PLATFORM_NEWLINE "\n"
 	#if __aarch64__
-		#define PLATFORM_ARCH ArchitectureType::ARM64
+		#define PLATFORM_ARCH Architecture::ARM64
 	#else
-		#define PLATFORM_ARCH ArchitectureType::x64
+		#define PLATFORM_ARCH Architecture::x64
 	#endif
 #endif

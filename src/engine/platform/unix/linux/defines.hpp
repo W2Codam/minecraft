@@ -3,14 +3,19 @@
 // See the LICENSE file in the project root for more information.
 // ============================================================================
 
-#include <core/engine.hpp>
-#include <core/types/common.hpp>
-#include <iostream>
-#include <platform/defines.hpp>
+#pragma once
 
 // ============================================================================
 
-int wmain(int argc, wchar_t* argv[]) {
-	std::cout << "Hello, Windows!" << std::endl;
-	return (EXIT_SUCCESS);
-}
+#if PLATFORM_LINUX
+# define PLATFORM_NEWLINE "\n"
+# define PLATFORM_SEPARATOR "/"
+# define PLATFORM_TYPE PlatformType::Linux
+# if _LINUX64 || __x86_64
+#	define PLATFORM_64 1
+#	define PLATFORM_ARCH ArchitectureType::x64
+# else
+#	define PLATFORM_64 0
+#	define PLATFORM_ARCH ArchitectureType::x86
+# endif
+#endif

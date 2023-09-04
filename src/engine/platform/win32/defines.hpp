@@ -7,7 +7,7 @@
 
 // ============================================================================
 
-#ifdef PLATFORM_WINDOWS
+#if PLATFORM_WINDOWS
 # define PLATFORM_NEWLINE "\r\n"
 # define PLATFORM_SEPARATOR "\\"
 # define PLATFORM_TYPE PlatformType::Windows

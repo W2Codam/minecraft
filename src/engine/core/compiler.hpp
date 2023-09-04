@@ -6,9 +6,8 @@
 #pragma once
 
 // Compiler specific defines and macros
-// ============================================================================
-
 // See: https://blog.kowalczyk.info/article/j/guide-to-predefined-macros-in-c-compilers-gcc-clang-msvc-etc..html
+// ============================================================================
 
 /** @brief The different supported compilers. */
 enum class Compiler {
@@ -17,12 +16,13 @@ enum class Compiler {
 	MSVC,
 };
 
+// ============================================================================
+
 #if defined(__clang__)
 # define COMPILER Compiler::Clang
 # define STDCALL __attribute__((stdcall))
 # define CDECL __attribute__((cdecl))
 # define RESTRICT __restrict__
-# define INLINE inline
 # define FORCE_INLINE inline
 # define FORCE_NOINLINE __attribute__((noinline))
 # define NO_RETURN __attribute__((noreturn))
@@ -34,7 +34,6 @@ enum class Compiler {
 # define STDCALL __attribute__((stdcall))
 # define CDECL __attribute__((cdecl))
 # define RESTRICT __restrict__
-# define INLINE inline
 # define FORCE_INLINE inline
 # define FORCE_NOINLINE __attribute__((noinline))
 # define NO_RETURN __attribute__((noreturn))
@@ -49,7 +48,6 @@ enum class Compiler {
 # define STDCALL __stdcall
 # define CDECL __cdecl
 # define RESTRICT __restrict
-# define INLINE __forceinline
 # define FORCE_INLINE __forceinline
 # define FORCE_NOINLINE __declspec(noinline)
 # define NO_RETURN __declspec(noreturn)

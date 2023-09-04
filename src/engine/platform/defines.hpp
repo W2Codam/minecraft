@@ -4,43 +4,17 @@
 // ============================================================================
 
 #pragma once
+#include <core/types/common.hpp>
 
+// Overall system specific defines
 // ============================================================================
 
-/** @brief The different supported platforms. */
-enum class Platform {
-	Windows,
-	Linux,
-	Apple,
-};
-
-/** @brief The different available architectures. */
-enum class Architecture {
-	x86,
-	x64,
-	arm,
-	arm64,
-};
-
-#ifndef EXIT_SUCCESS
-# define EXIT_SUCCESS 0
-#endif
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
-#endif
-
 // Platform detection
-#ifdef __APPLE__
-# define PLATFORM_APPLE 1
-# include "darwin/defines.hpp"
-#elif defined(_WIN32) && defined(MSVC)
-# define PLATFORM_WINDOWS 1
-# include <Windows.h>
-# include "windows/defines.hpp"
-#elif defined(__linux__)
-# define PLATFORM_LINUX 1
-# include "linux/defines.hpp"
-#else
-# error "Unknown platform or not supported!"
+#ifdef PLATFORM_APPLE
+# include <platform/unix/darwin/defines.hpp>
+#elif defined(PLATFORM_WINDOWS)
+# include <platform/win32/defines.hpp>
+#elif defined(PLATFORM_LINUX)
+# include <platform/unix/linux/defines.hpp>
 #endif
-#define PLATFORM_32 (!PLATFORM_64)
+

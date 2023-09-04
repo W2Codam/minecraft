@@ -3,19 +3,16 @@
 // See the LICENSE file in the project root for more information.
 // ============================================================================
 
-#pragma once
+#include <core/engine.hpp>
+#include <core/types/common.hpp>
+#include <iostream>
+#include <platform/defines.hpp>
 
 // ============================================================================
 
-#ifdef PLATFORM_LINUX
-# define PLATFORM_NEWLINE "\n"
-# define PLATFORM_SEPARATOR "/"
-# define PLATFORM_TYPE PlatformType::Linux
-# ifdef _LINUX64
-#	define PLATFORM_64 1
-#	define PLATFORM_ARCH ArchitectureType::x64
-# else
-#	define PLATFORM_64 0
-#	define PLATFORM_ARCH ArchitectureType::x86
-# endif
-#endif
+int main(int argc, const char* argv[]) {
+	Engine<PlatformType> engine;
+
+	std::cout << "Hello, Linux!" << std::endl;
+	return (EXIT_SUCCESS);
+}
