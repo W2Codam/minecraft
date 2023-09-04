@@ -4,8 +4,8 @@
 // ============================================================================
 
 #include <iostream>
-#include "engine/core/types/common.hpp"
-#include "engine/platform/defines.hpp"
+#include <core/types/common.hpp>
+#include <platform/defines.hpp>
 
 // ============================================================================
 

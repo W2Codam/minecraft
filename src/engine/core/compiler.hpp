@@ -8,8 +8,17 @@
 // Compiler specific defines and macros
 // ============================================================================
 
+// See: https://blog.kowalczyk.info/article/j/guide-to-predefined-macros-in-c-compilers-gcc-clang-msvc-etc..html
+
+/** @brief The different supported compilers. */
+enum class Compiler {
+	Clang,
+	GCC,
+	MSVC,
+};
+
 #if defined(__clang__)
-# define IS_CLANG
+# define COMPILER Compiler::Clang
 # define STDCALL __attribute__((stdcall))
 # define CDECL __attribute__((cdecl))
 # define RESTRICT __restrict__
@@ -21,7 +30,7 @@
 # define DLLEXPORT __attribute__((__visibility__("default")))
 # define DLLIMPORT
 #elif defined(__GNUC__)
-# define IS_GCC
+# define COMPILER Compiler::GCC
 # define STDCALL __attribute__((stdcall))
 # define CDECL __attribute__((cdecl))
 # define RESTRICT __restrict__
@@ -33,7 +42,7 @@
 # define DLLEXPORT __attribute__((__visibility__("default")))
 # define DLLIMPORT
 #elif defined(_MSC_VER)
-# define IS_MSVC
+# define COMPILER Compiler::MSVC
 # if _MSC_VER < 1920
 #	error "Please use Visual Studio 2019 or later"
 # endif

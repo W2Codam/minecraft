@@ -4,9 +4,9 @@
 // ============================================================================
 
 #pragma once
-#include "engine/core/compiler.hpp"
-#include "engine/platform/defines.hpp"
+#include <core/compiler.hpp>
 #include <cstddef>
+#include <platform/defines.hpp>
 
 // Common types and definitions used throughout the engine and platforms.
 // ============================================================================

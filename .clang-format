@@ -39,7 +39,7 @@ PointerAlignment: Left  # Set pointers to be on the left side
 DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
-IndentCaseLabels: false
+IndentCaseLabels: true
 IndentPPDirectives: AfterHash
 KeepEmptyLinesAtTheStartOfBlocks: true
 MacroBlockBegin: ''
