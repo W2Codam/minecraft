@@ -23,7 +23,7 @@ enum class ArchitectureType {
 
 #ifdef __APPLE__
 # define PLATFORM_APPLE 1
-#elif defined(_WIN32) && defined(MSVC)
+#elif defined(_WIN32) || defined(MSVC)
 # define PLATFORM_WINDOWS 1
 #elif defined(__linux__)
 # define PLATFORM_LINUX 1
@@ -31,8 +31,8 @@ enum class ArchitectureType {
 # error "Unknown platform or not supported!"
 #endif
 #define PLATFORM_32 (!PLATFORM_64)
-#include <core/compiler.hpp>
 #include <cstddef>
+#include <platform/compiler.hpp>
 #include <platform/defines.hpp>
 
 // Common types and definitions used throughout the engine and platforms.
@@ -91,17 +91,9 @@ using uintptr = u32;
 constexpr const i32 PTR_SIZE = 4;
 #endif
 
-#ifdef PLATFORM_WINDOWS
-# ifdef _WCHAR_T_DEFINED
-using char_t = wchar_t;
-# else
-using char_t = unsigned short;
-# endif
-# define TEXT(x) L##x
-#elif defined(PLATFORM_UTF16)
-using char_t = char16_t;
-# define TEXT(x) u##x
-#else
-using char_t = char;
-# define TEXT(x) u8##x
-#endif
+#define UTF16(x) u##x
+using utf16 = char16_t;
+#define UTF8(x) u8##x
+using utf8 = char8_t;
+#define ANSI(x) x
+using ansi = char;

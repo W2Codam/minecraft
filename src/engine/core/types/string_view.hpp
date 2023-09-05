@@ -8,7 +8,7 @@
 
 // ============================================================================
 
-namespace core::types {
+namespace core {
 
 /**
  * @brief A view of a string.
@@ -74,16 +74,4 @@ private:
 	size_t m_size;
 };
 
-} // namespace core::types
-
-// UTF-16 StringView
-// ============================================================================
-
-namespace core::types {
-
-template <>
-class StringViewBase<char_t> {
-
-};
-
-} // namespace core::types
+}

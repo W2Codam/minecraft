@@ -11,7 +11,7 @@
 # define PLATFORM_NEWLINE "\r\n"
 # define PLATFORM_SEPARATOR "\\"
 # define PLATFORM_TYPE PlatformType::Windows
-# ifdef _WIN64 || defined(__WIN64__) || defined(_M_X64)
+# if defined(_WIN64) || defined(__WIN64__) || defined(_M_X64)
 #	define PLATFORM_64 1
 #	define PLATFORM_ARCH ArchitectureType::x64
 # else

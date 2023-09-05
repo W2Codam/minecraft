@@ -35,4 +35,4 @@
 build/bin
 build/obj
 .nuke
-build
+build*

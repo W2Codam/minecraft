@@ -14,7 +14,12 @@
 # include <platform/unix/darwin/defines.hpp>
 #elif defined(PLATFORM_WINDOWS)
 # include <platform/win32/defines.hpp>
+# define ASSERT(x, ...) \
+	 {                    \
+		 if (x) {           \
+			 __debugbreak();  \
+		 }                  \
+	 }
 #elif defined(PLATFORM_LINUX)
 # include <platform/unix/linux/defines.hpp>
 #endif
-
