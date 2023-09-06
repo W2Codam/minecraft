@@ -5,6 +5,7 @@
 
 #pragma once
 #include <core/types/common.hpp>
+#include <core/types/string.hpp>
 
 // ============================================================================
 
@@ -17,61 +18,46 @@ namespace core {
  */
 template <typename T>
 class StringViewBase {
-public: // Constructors
-	StringViewBase(T* data, size_t size) : m_data(data), m_size(size) {
+protected:
+	const T* m_data;
+	size_t m_length;
+
+	constexpr StringViewBase() : m_data(nullptr), m_length(0) {
 	}
-	~StringViewBase();
 
-	//= Operators =//
+	constexpr StringViewBase(const T* data, size_t length)
+		: m_data(data), m_length(length) {
+	}
 
-	FORCE_INLINE const T& operator[](i32 index) const {
+public:
+	FORCE_INLINE const T& operator[](size_t index) const {
 		return m_data[index];
 	}
 
 	FORCE_INLINE StringViewBase& operator=(const StringViewBase& other) {
 		if (this != &other) {
-			m_data = other.size_data;
-			m_size = other.m_size;
+			m_data = other.m_data;
+			m_length = other.m_length;
 		}
 		return *this;
 	}
 
-public: // Functions
-	/** @returns The length of the view. */
-	FORCE_INLINE size_t length(void) const {
-		return m_size;
+public:
+	FORCE_INLINE bool empty() const {
+		return m_length == 0;
 	}
 
-	/** @returns Whether the view is empty. */
-	FORCE_INLINE bool isEmpty(void) const {
-		return m_size == 0;
+	FORCE_INLINE constexpr size_t length() const {
+		return m_length;
 	}
 
-	/** @returns The data of the view. */
-	FORCE_INLINE constexpr const T* get(void) const {
+	FORCE_INLINE constexpr const T* operator*() const {
 		return m_data;
 	}
-
-	/**
-	 * @brief Returns a substring of the view.
-	 *
-	 * @param index The index to start the substring at.
-	 * @param length The length of the substring.
-	 * @return StringView<T> The substring.
-	 */
-	StringViewBase<T> substring(size_t index, size_t length) const;
-
-	/**
-	 * @brief Slices the view in place.
-	 *
-	 * @param index The offset to start the slice at.
-	 * @param length The length of the slice.
-	 */
-	void slice(size_t index, size_t length);
-
-private:
-	T* m_data;
-	size_t m_size;
 };
 
-}
+// ============================================================================
+
+class StringView : public StringViewBase<utf8> {};
+
+} // namespace core

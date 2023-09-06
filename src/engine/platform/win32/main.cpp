@@ -13,8 +13,6 @@
 // ============================================================================
 
 int wmain(int argc, wchar_t* argv[]) {
-	std::cout << "Hello, Windows!" << std::endl;
-
 	core::Array<int> array = {1, 2, 3, 4, 5};
 	std::cout << "Hello, Windows!" << std::endl;
 

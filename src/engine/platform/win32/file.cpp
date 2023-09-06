@@ -3,22 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // ============================================================================
 
-#pragma once
-#include <stdio.h>
-#include <unistd.h>
-#include <core/types/common.hpp>
-#include <platform/base/file_base.hpp>
+#include <platform/win32/file.hpp>
 
 // ============================================================================
-
-namespace core::filesystem {
-
-/**
- * @brief File class for reading and writing files.
- * TODO: Implement this class.
- */
-class File : public AFileBase {
-	
-};
-
-} // namespace Core

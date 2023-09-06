@@ -4,8 +4,7 @@
 // ============================================================================
 
 #pragma once
-#include <stdio.h>
-#include <unistd.h>
+#include <windows.h>
 #include <core/types/common.hpp>
 #include <platform/base/file_base.hpp>
 
@@ -18,7 +17,8 @@ namespace core::filesystem {
  * TODO: Implement this class.
  */
 class File : public AFileBase {
-	
+private:
+	HANDLE m_handle;
 };
 
 } // namespace Core
