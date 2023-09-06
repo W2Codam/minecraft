@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "memory": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "iostream": "cpp"
     },
-    "cmake.sourceDirectory": "/home/lde-la-h/Developer/minecraft/src"
+    "cmake.sourceDirectory": "C:/Users/leond/Developer/minecraft/src",
 }

@@ -16,7 +16,7 @@
 # include <platform/win32/defines.hpp>
 # define ASSERT(x, ...) \
 	{                    \
-		if (x) {           \
+		if (!x) {           \
 			__debugbreak();  \
 		}                  \
 	}

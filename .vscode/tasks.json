@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cmake",
+            "label": "CMake Configure Paradox",
+            "command": "configure",
+            "targets": [
+                "paradox"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": [
+                "$gcc",
+                "$msCompile"
+            ],
+        },
+        {
+            "type": "cmake",
+            "label": "CMake Build Paradox",
+            "command": "build",
+            "targets": [
+                "paradox"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc",
+                "$msCompile"
+            ],
+            "dependsOn": [
+                "CMake Configure Paradox"
+            ]
+        }
+    ],
+}

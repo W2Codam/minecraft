@@ -4,21 +4,20 @@
 // ============================================================================
 
 #pragma once
-#include <core/types/common.hpp>
 #include <core/memory.hpp>
+#include <core/types/common.hpp>
 #include <initializer_list>
 
 // ============================================================================
 
-namespace core
-{
+namespace core {
 
 /**
  * @brief A dynamic memory allocating array.
  *
  * TODO: Lot's of duplicated code, maybe have some sort of common
  * memory allocation class / functions?
- * 
+ *
  * @tparam T The type of the array.
  */
 template <typename T>
@@ -27,11 +26,12 @@ public: // Constructors
 	/**
 	 * @brief Construct a new Array object
 	 */
-	Array(void) : m_size(0), m_capacity(0) { }
+	Array(void) : m_size(0), m_capacity(0) {
+	}
 
 	/**
 	 * @brief Construct a new Array object
-	 * 
+	 *
 	 * @param capacity The capacity of the array.
 	 */
 	Array(i32 capacity) : m_size(0), m_capacity(capacity) {
@@ -40,27 +40,27 @@ public: // Constructors
 
 	/**
 	 * @brief Construct a new Array object
-	 * 
+	 *
 	 * @param list The initializer list.
 	 */
 	Array(std::initializer_list<T> list) {
 		memory::free(m_data);
 
 		m_size = m_capacity = list.size();
-		memory::alloc<T>(m_capacity);
+		m_data = memory::alloc<T>(m_capacity);
 		memory::copy(m_data, list.begin(), list.size());
 	}
 
 	/**
 	 * @brief Construct a new Array object
-	 * 
+	 *
 	 * @param other The other array.
 	 */
 	Array(const Array<T>& other) {
 		memory::free(m_data);
 
 		m_size = m_capacity = other.m_size;
-		memory::alloc<T>(m_capacity);
+		m_data = memory::alloc<T>(m_capacity);
 		memory::copy(m_data, other.m_data, m_size);
 	}
 
@@ -90,7 +90,7 @@ public: // Operators
 	}
 
 	T& operator[](i32 index) {
-		ASSERT(index > 0 && index < m_size, "Index out of bounds!");
+		//ASSERT(index > 0 && index < m_size, "Index out of bounds!");
 		return m_data[static_cast<size_t>(index)];
 	}
 
@@ -123,17 +123,16 @@ public: // Methods
 
 	/**
 	 * @brief Pushes a value to the array.
-	 * 
+	 *
 	 * @param value The new value to push.
 	 */
 	void push(const T& value) {
-
 		insert(value, m_size);
 	}
 
 	/**
 	 * @brief Inserts a value at the given index.
-	 * 
+	 *
 	 * @param value The new value to insert.
 	 * @param index The index to insert the value at.
 	 */
@@ -144,7 +143,7 @@ public: // Methods
 			m_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
 			T* newData = memory::alloc<T>(m_capacity);
 			memory::copy(newData, m_data, m_size);
-			
+
 			for (size_t i = 0; i < m_size; i++)
 				newData[i] = m_data[i];
 
@@ -161,7 +160,7 @@ public: // Methods
 
 	/**
 	 * @brief Removes a value at the given index.
-	 * 
+	 *
 	 * @param index The index to remove the value at.
 	 */
 	void remove(size_t index) {

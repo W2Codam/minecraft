@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+      {
+        "name": "Debug Paradox",
+        "type": "cppdbg",
+        "request": "launch",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "preLaunchTask": "CMake Build Paradox",
+        "osx": {
+          "name": "Debug macOS",
+          "program": "${workspaceFolder}/bin/debug/paradox",
+        },
+        "linux": {
+          "name": "Debug Linux",
+          "program": "${workspaceFolder}/bin/debug/paradox",
+        },
+        "windows": {
+          "name": "Debug Windows",
+          "type": "cppvsdbg",
+          "program": "${workspaceFolder}/bin/debug/paradox.exe"
+        }
+      },
+    ],
+  }

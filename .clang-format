@@ -58,4 +58,3 @@ SpaceBeforeInheritanceColon: true
 SpacesBeforeTrailingComments: 1
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-PPIndentWidth: 1
