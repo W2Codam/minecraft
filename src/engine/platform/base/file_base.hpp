@@ -5,7 +5,7 @@
 
 #pragma once
 #include <core/types/common.hpp>
-#include <core/types/stringview.hpp>
+#include <core/types/string_view.hpp>
 
 // ============================================================================
 

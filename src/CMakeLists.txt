@@ -15,7 +15,7 @@ add_subdirectory(libs/vma)
 
 # Get all the source files inside the engine directory
 include_directories(${CMAKE_SOURCE_DIR}/engine)
-file(GLOB_RECURSE SOURCES "engine/*.cpp" "engine/*.h")
+file(GLOB_RECURSE SOURCES "engine/*.cpp" "engine/*.hpp")
 list(FILTER SOURCES EXCLUDE REGEX "main.cpp")
 
 message(STATUS "SOURCES: ${SOURCES}")

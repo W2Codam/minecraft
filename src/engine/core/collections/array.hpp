@@ -5,6 +5,7 @@
 
 #pragma once
 #include <core/types/common.hpp>
+#include <core/memory.hpp>
 #include <initializer_list>
 
 // ============================================================================
@@ -34,7 +35,7 @@ public: // Constructors
 	 * @param capacity The capacity of the array.
 	 */
 	Array(i32 capacity) : m_size(0), m_capacity(capacity) {
-		m_data = new T[capacity];
+		m_data = memory::alloc<T>(capacity);
 	}
 
 	/**
@@ -43,12 +44,11 @@ public: // Constructors
 	 * @param list The initializer list.
 	 */
 	Array(std::initializer_list<T> list) {
-		m_size = m_capacity = list.size();
+		memory::free(m_data);
 
-		m_data = new T[list.size()];
-		for (size_t i = 0; i < list.size(); i++) {
-			m_data[i] = list[i];
-		}
+		m_size = m_capacity = list.size();
+		memory::alloc<T>(m_capacity);
+		memory::copy(m_data, list.begin(), list.size());
 	}
 
 	/**
@@ -57,57 +57,65 @@ public: // Constructors
 	 * @param other The other array.
 	 */
 	Array(const Array<T>& other) {
-		m_size = m_capacity = other.m_size;
+		memory::free(m_data);
 
-		m_data = new T[m_capacity];
-		for (size_t i = 0; i < m_size; i++) {
-			m_data[i] = other.m_data[i];
-		}
+		m_size = m_capacity = other.m_size;
+		memory::alloc<T>(m_capacity);
+		memory::copy(m_data, other.m_data, m_size);
 	}
 
 	~Array(void) {
-		delete[] m_data;
+		memory::free(m_data);
 	}
 
 public: // Operators
 	Array& operator=(std::initializer_list<T> list) {
-		delete[] m_data;
-
+		memory::free(m_data);
 		m_size = m_capacity = list.size();
 
-		m_data = new T[list.size()];
-		for (size_t i = 0; i < list.size(); i++) {
-			m_data[i] = list[i];
-		}
-
+		m_data = memory::alloc<T>(m_capacity);
+		memory::copy(m_data, list.begin(), list.size());
 		return *this;
 	}
 
 	Array& operator=(const Array<T>& other) {
 		if (this != &other) {
-			delete[] m_data;
+			memory::free(m_data);
 
 			m_size = m_capacity = other.m_size;
-
-			m_data = new T[m_capacity];
-			for (size_t i = 0; i < m_size; i++) {
-				m_data[i] = other.m_data[i];
-			}
+			m_data = memory::alloc<T>(m_capacity);
+			memory::copy(m_data, other.m_data, m_size);
 		}
-
 		return *this;
 	}
 
 	T& operator[](i32 index) {
-		return this->operator[](static_cast<size_t>(index));
+		ASSERT(index > 0 && index < m_size, "Index out of bounds!");
+		return m_data[static_cast<size_t>(index)];
 	}
 
-	T& operator[](size_t index) {
+	const T& operator[](i32 index) const {
 		ASSERT(index > 0 && index < m_size, "Index out of bounds!");
-		return m_data[index];
+		return m_data[static_cast<size_t>(index)];
 	}
 
 public: // Methods
+	FORCE_INLINE T* begin() {
+		return &(m_data[0]);
+	}
+
+	FORCE_INLINE T* end() {
+		return &(m_data[m_size]);
+	}
+
+	FORCE_INLINE const T* begin() const {
+		return &(m_data[0]);
+	}
+
+	FORCE_INLINE const T* end() const {
+		return &(m_data[m_size]);
+	}
+
 	/** @return The length of the array. */
 	size_t length(void) const {
 		return m_size;
@@ -119,19 +127,8 @@ public: // Methods
 	 * @param value The new value to push.
 	 */
 	void push(const T& value) {
-		if (m_size == m_capacity) {
-			m_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
-			T* newData = new T[m_capacity];
 
-			for (size_t i = 0; i < m_size; i++) {
-				newData[i] = m_data[i];
-			}
-
-			delete[] m_data;
-			m_data = newData;
-		}
-
-		m_data[m_size++] = value;
+		insert(value, m_size);
 	}
 
 	/**
@@ -145,19 +142,18 @@ public: // Methods
 
 		if (m_size == m_capacity) {
 			m_capacity = m_capacity == 0 ? 1 : m_capacity * 2;
-			T* newData = new T[m_capacity];
-
-			for (size_t i = 0; i < m_size; i++) {
+			T* newData = memory::alloc<T>(m_capacity);
+			memory::copy(newData, m_data, m_size);
+			
+			for (size_t i = 0; i < m_size; i++)
 				newData[i] = m_data[i];
-			}
 
-			delete[] m_data;
+			memory::free(m_data);
 			m_data = newData;
 		}
 
-		for (size_t i = m_size; i > index; i--) {
+		for (size_t i = m_size; i > index; i--)
 			m_data[i] = m_data[i - 1];
-		}
 
 		m_data[index] = value;
 		m_size++;
